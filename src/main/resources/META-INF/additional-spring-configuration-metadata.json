@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "antoinelamoureux.app.jwtExpirationMs",
+    "type": "java.lang.String",
+    "description": "A description for 'antoinelamoureux.app.jwtExpirationMs'"
+  },
+  {
+    "name": "antoinelamoureux.app.jwtExpirationMs",
+    "type": "java.lang.String",
+    "description": "A description for 'antoinelamoureux.app.jwtExpirationMs'"
+  },
+  {
+    "name": "antoinelamoureux.app.jwtExpirationMs",
+    "type": "java.lang.String",
+    "description": "A description for 'antoinelamoureux.app.jwtExpirationMs'"
+  },
+  {
+    "name": "antoinelamoureux.app.jwtSecret",
+    "type": "java.lang.String",
+    "description": "A description for 'antoinelamoureux.app.jwtSecret'"
+  }
+]}
