@@ -1,7 +1,7 @@
 package com.antoinelamoureux.playhouse.models;
 
 import java.io.Serializable;
-
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -56,6 +56,8 @@ public class Game implements Serializable {
     @Column(name = "release_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date releaseDate;
+    @Column(name = "price")
+    private BigDecimal price;
     @JoinColumn(name = "id_note", referencedColumnName = "id_note")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Note note;
@@ -68,10 +70,11 @@ public class Game implements Serializable {
     @JoinColumn(name = "id_classification", referencedColumnName = "id_classification")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Classification classification;
-    @JoinTable(name = "games_user", joinColumns = {
+    /*@JoinTable(name = "games_user", joinColumns = {
         @JoinColumn(name = "id_game", referencedColumnName = "id_game")}, inverseJoinColumns = {
         @JoinColumn(name = "id", referencedColumnName = "id")})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)*/
+    @ManyToMany(mappedBy = "games")
     private List<User> userCollection;
     @JoinTable(name = "games_tags", joinColumns = {
         @JoinColumn(name = "id_game", referencedColumnName = "id_game")}, inverseJoinColumns = {

@@ -70,7 +70,7 @@ public abstract class AbstractController<T> {
 		}	
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, consumes={MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value="/add",method=RequestMethod.POST, consumes={MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<T> create(@RequestBody T item) {
 		try {
 		repository.save(item);
