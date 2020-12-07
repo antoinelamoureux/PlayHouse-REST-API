@@ -1,5 +1,6 @@
 package com.antoinelamoureux.playhouse.models;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,14 +9,22 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id", scope = User.class)
 @Entity
 @Table( name = "users", 
 		uniqueConstraints = {
 				@UniqueConstraint(columnNames = "username"),
 				@UniqueConstraint(columnNames = "email")				
 		})
-public class User {
+public class User implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -39,11 +48,12 @@ public class User {
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+	@JsonManagedReference
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
 	@JoinTable( name = "user_games",
 				joinColumns = @JoinColumn(name = "user.id"),
 				inverseJoinColumns = @JoinColumn(name = "id_game"))
-	private Set<Game> games = new HashSet<>();
+	private Set<Game> games;
 	
 	public User() {
 		

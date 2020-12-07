@@ -1,5 +1,6 @@
 package com.antoinelamoureux.playhouse.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -25,7 +26,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 		property = "id", scope = Note.class)
 @Entity
 @Table(name = "notes")
-public class Note {
+public class Note implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)

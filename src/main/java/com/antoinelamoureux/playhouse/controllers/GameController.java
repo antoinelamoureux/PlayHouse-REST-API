@@ -94,6 +94,9 @@ public class GameController extends AbstractController<Game>{
 	public Set<Game> getGamesByUserId(@PathVariable(value = "id") Long id) {
 		User user = userRepository.findById(id).get();
 		Set<Game> games = user.getGames(); 
+		for (Game game: games) {
+			System.out.println(game.getTitle());
+		}
 		
 		return games;
 	}

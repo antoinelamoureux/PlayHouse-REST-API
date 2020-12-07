@@ -8,7 +8,9 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @JsonIdentityInfo(
@@ -58,33 +60,35 @@ public class Game implements Serializable {
     private Date releaseDate;
     @Column(name = "price")
     private BigDecimal price;
+    @JsonManagedReference
     @JoinColumn(name = "id_note", referencedColumnName = "id_note")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Note note;
+    @JsonManagedReference
     @JoinColumn(name = "id_category", referencedColumnName = "id_category")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Category category;
+    @JsonManagedReference
     @JoinColumn(name = "id_state", referencedColumnName = "id_state")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private State state;
+    @JsonManagedReference
     @JoinColumn(name = "id_classification", referencedColumnName = "id_classification")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Classification classification;
-    /*@JoinTable(name = "games_user", joinColumns = {
-        @JoinColumn(name = "id_game", referencedColumnName = "id_game")}, inverseJoinColumns = {
-        @JoinColumn(name = "id", referencedColumnName = "id")})
-    @ManyToMany(fetch = FetchType.LAZY)*/
-    @ManyToMany(mappedBy = "games")
+    @JsonBackReference
+    @ManyToMany(fetch = FetchType.EAGER,  cascade = {CascadeType.ALL}, mappedBy = "games")
+    @OrderBy("id DESC")
     private List<User> userCollection;
     @JoinTable(name = "games_tags", joinColumns = {
-        @JoinColumn(name = "id_game", referencedColumnName = "id_game")}, inverseJoinColumns = {
-        @JoinColumn(name = "id_tag", referencedColumnName = "id_tag")})
-    @ManyToMany(fetch = FetchType.LAZY)
+            @JoinColumn(name = "id_game", referencedColumnName = "id_game")}, inverseJoinColumns = {
+            @JoinColumn(name = "id_tag", referencedColumnName = "id_tag")})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private List<Tag> tagsCollection;
     @JoinTable(name = "games_platform", joinColumns = {
         @JoinColumn(name = "id_game", referencedColumnName = "id_game")}, inverseJoinColumns = {
         @JoinColumn(name = "id_platform", referencedColumnName = "id_platform")})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private List<Platform> platformCollection;
     @JoinColumn(name = "id_developper", referencedColumnName = "id_developper")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -119,7 +123,23 @@ public class Game implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
+    public String getCover() {
+		return cover;
+	}
+
+	public void setCover(String cover) {
+		this.cover = cover;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public String getTitle() {
         return title;
     }
 

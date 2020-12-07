@@ -6,6 +6,13 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id", scope = Tag.class)
 @Entity
 @Table(name = "tags")
 @NamedQueries({
@@ -25,6 +32,7 @@ public class Tag implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "title")
     private String title;
+    @JsonBackReference
     @ManyToMany(mappedBy = "tagsCollection")
     private List<Game> gamesCollection;
 
