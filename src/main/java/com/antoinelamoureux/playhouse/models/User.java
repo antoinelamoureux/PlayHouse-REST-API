@@ -48,7 +48,6 @@ public class User implements Serializable{
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 	
-	@JsonManagedReference
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
 	@JoinTable( name = "user_games",
 				joinColumns = @JoinColumn(name = "user.id"),

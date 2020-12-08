@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,18 +19,18 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = Classification.class)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "classification")
 public class Classification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = " id_classification")
+    @Column(name = "id_classification")
     private Long id;
     @Enumerated(EnumType.STRING)
     @Basic(optional = false)
@@ -38,16 +39,14 @@ public class Classification {
     @Column(name = "name")
     private EClassification name;
     @JsonBackReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
+    @OneToMany(mappedBy = "id")
     private List<Game> games;
     
     public Classification() {
 		
 	}
 
-	public Classification(Long id, @NotNull @Size(min = 1, max = 50) EClassification name, List<Game> games) {
-		super();
-		this.id = id;
+	public Classification(EClassification name, List<Game> games) {
 		this.name = name;
 		this.games = games;
 	}

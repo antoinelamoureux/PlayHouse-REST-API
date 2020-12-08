@@ -2,6 +2,7 @@ package com.antoinelamoureux.playhouse.models;
 
 import java.util.List;
 
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,11 +17,11 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = Category.class)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "category")
 public class Category {
@@ -35,7 +36,7 @@ public class Category {
     @Column(name = "name")
     private String name;
     @JsonBackReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
+    @OneToMany(mappedBy = "id")
     private List<Game> games;
     
 	public Category() {

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.antoinelamoureux.playhouse.models.DataRequest;
@@ -90,7 +91,7 @@ public class GameController extends AbstractController<Game>{
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
 	
-	@GetMapping("/user/{id}")
+	@RequestMapping(value="/user/{id}", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
 	public Set<Game> getGamesByUserId(@PathVariable(value = "id") Long id) {
 		User user = userRepository.findById(id).get();
 		Set<Game> games = user.getGames(); 

@@ -44,8 +44,7 @@ public class Note implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
 	private List<Game> games;
 	
-	public Note(@NotNull @Size(min = 1, max = 9) EState note, List<Game> games) {
-		super();
+	public Note(@NotNull @Size(min = 1, max = 9) EState note, List<Game> games) {;
 		this.note = note;
 		this.games = games;
 	}

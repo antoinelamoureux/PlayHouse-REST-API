@@ -10,7 +10,7 @@ INSERT INTO category (name) VALUES ('Action'), ('Plateform'), ('Action/PlateForm
 
 INSERT INTO platform_type (name) VALUES ('Computer'), ('Arcade'), ('Console');
 
-INSERT INTO platform (name, id_type) VALUES ('Playstation', 3), ('Playstation 2', 3), ('Playstation 3', 3), ('Playstation 4', 3), ('Playstation 5', 3), ('Nintendo Entertainement System', 3), ('Super Nintendo', 3), ('Nintendo 64', 3), ('Game Cube', 3), ('Wii', 3), ('Wii U', 3), ('Switch', 3), ('Sega Model 1', 3), ('Master System', 3), ('Mega Drive', 3), ('Mega CD', 3), ('32X', 3), ('Saturn', 3), ('Dreamcast', 3), ('FM Towns', 3), ('Atari 2600', 3), ('Atari 7800', 3), ('Jaguar', 3), ('3DO', 3), ('CDI', 3), ('Pc Engine', 3), ('Pc Engine CD-Rom', 3), ('SuperGrafX', 3), ('PC-FX', 3), ('Neo Geo', 3), ('Neo Geo CD', 3), ('Neo Geo X', 3);
+INSERT INTO platform (name, id_platform_type) VALUES ('Playstation', 3), ('Playstation 2', 3), ('Playstation 3', 3), ('Playstation 4', 3), ('Playstation 5', 3), ('Nintendo Entertainement System', 3), ('Super Nintendo', 3), ('Nintendo 64', 3), ('Game Cube', 3), ('Wii', 3), ('Wii U', 3), ('Switch', 3), ('Sega Model 1', 3), ('Master System', 3), ('Mega Drive', 3), ('Mega CD', 3), ('32X', 3), ('Saturn', 3), ('Dreamcast', 3), ('FM Towns', 3), ('Atari 2600', 3), ('Atari 7800', 3), ('Jaguar', 3), ('3DO', 3), ('CDI', 3), ('Pc Engine', 3), ('Pc Engine CD-Rom', 3), ('SuperGrafX', 3), ('PC-FX', 3), ('Neo Geo', 3), ('Neo Geo CD', 3), ('Neo Geo X', 3);
 
 INSERT INTO classification (name) VALUES ('PEGI3'), ('PEGI7'), ('PEGI12'), ('PEGI16'), ('PEGI18');
 

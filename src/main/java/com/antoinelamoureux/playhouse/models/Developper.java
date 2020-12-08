@@ -8,11 +8,11 @@ import javax.validation.constraints.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = Developper.class)
+
 @Entity
 @Table(name = "developper")
 @NamedQueries({
@@ -43,7 +43,7 @@ public class Developper implements Serializable {
     @Column(name = "country")
     private String country;
     @JsonBackReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
+    @OneToMany(mappedBy = "id")
     private List<Game> gamesCollection;
 
     public Developper() {

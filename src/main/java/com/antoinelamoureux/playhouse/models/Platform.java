@@ -5,6 +5,17 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id", scope = Platform.class)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "platform")
 @NamedQueries({
@@ -23,10 +34,12 @@ public class Platform {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 8)
-    @JoinColumn(name = "id_type", referencedColumnName = "id_platform_type")
+    @JsonManagedReference
+    @JoinColumn(name = "id_platform_type", referencedColumnName = "id_platform_type")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private PlatformType type;
-    @ManyToMany(mappedBy = "platformCollection")
+    @JsonBackReference
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "platformCollection")
     private List<Game> games;
 
     public Platform() {

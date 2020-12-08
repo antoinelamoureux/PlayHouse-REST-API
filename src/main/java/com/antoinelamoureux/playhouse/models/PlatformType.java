@@ -15,7 +15,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id", scope = PlatformType.class)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "platform_type")
 public class PlatformType {
@@ -29,9 +37,12 @@ public class PlatformType {
 	@Column(length = 20)
 	private EPlatformType name;
 	
-	@JsonBackReference
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
+	@OneToMany(mappedBy = "id")
     private List<Platform> platforms;
+	
+	public PlatformType() {
+	
+	}
 
 	public PlatformType(EPlatformType name, List<Platform> platforms) {
 		this.name = name;
