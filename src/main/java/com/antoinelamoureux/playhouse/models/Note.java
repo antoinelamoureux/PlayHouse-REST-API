@@ -21,9 +21,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@JsonIdentityInfo(
-		generator = ObjectIdGenerators.PropertyGenerator.class, 
-		property = "id", scope = Note.class)
 @Entity
 @Table(name = "notes")
 public class Note implements Serializable {
@@ -34,17 +31,16 @@ public class Note implements Serializable {
 	@Basic(optional = false)
 	@Column(name = "id_note")
 	private Long id;
-	@Enumerated(EnumType.ORDINAL)
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 9)
 	@Column(name = "note")
-	private EState note;
+	private String note;
 	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
 	private List<Game> games;
 	
-	public Note(@NotNull @Size(min = 1, max = 9) EState note, List<Game> games) {;
+	public Note(@NotNull @Size(min = 1, max = 9) String note, List<Game> games) {;
 		this.note = note;
 		this.games = games;
 	}
@@ -61,11 +57,11 @@ public class Note implements Serializable {
 		this.id = id;
 	}
 
-	public EState getNote() {
+	public String getNote() {
 		return note;
 	}
 	
-	public void setNote(EState note) {
+	public void setNote(String note) {
 		this.note = note;
 	}
 	

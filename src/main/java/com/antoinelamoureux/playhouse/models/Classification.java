@@ -1,6 +1,7 @@
 package com.antoinelamoureux.playhouse.models;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -23,7 +24,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "classification")
 public class Classification {
@@ -32,21 +32,20 @@ public class Classification {
     @Basic(optional = false)
     @Column(name = "id_classification")
     private Long id;
-    @Enumerated(EnumType.STRING)
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "name")
-    private EClassification name;
-    @JsonBackReference
+    private String name;
+    @JsonBackReference(value="classification")
     @OneToMany(mappedBy = "id")
-    private List<Game> games;
+    private Set<Game> games;
     
     public Classification() {
 		
 	}
 
-	public Classification(EClassification name, List<Game> games) {
+	public Classification(String name, Set<Game> games) {
 		this.name = name;
 		this.games = games;
 	}
@@ -55,19 +54,19 @@ public class Classification {
 		return id;
 	}
 
-	public EClassification getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(EClassification name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public List<Game> getGames() {
+	public Set<Game> getGames() {
 		return games;
 	}
 
-	public void setGames(List<Game> games) {
+	public void setGames(Set<Game> games) {
 		this.games = games;
 	}
     

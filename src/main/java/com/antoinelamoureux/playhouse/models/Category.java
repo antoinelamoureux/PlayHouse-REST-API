@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "category")
 public class Category {
@@ -35,7 +34,7 @@ public class Category {
     @Size(min = 1, max = 50)
     @Column(name = "name")
     private String name;
-    @JsonBackReference
+    @JsonBackReference(value="category")
     @OneToMany(mappedBy = "id")
     private List<Game> games;
     

@@ -31,12 +31,11 @@ public class State {
 	@Basic(optional = false)
 	@Column(name = "id_state")
 	private Long id;
-	@Enumerated(EnumType.STRING)
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 9)
 	@Column(name = "name")
-	private EState name;
+	private String name;
 	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
 	private List<Game> games;
@@ -47,10 +46,10 @@ public class State {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public EState getName() {
+	public String getName() {
 		return name;
 	}
-	public void setName(EState name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	public List<Game> getGames() {

@@ -42,8 +42,8 @@ public class Developper implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "country")
     private String country;
-    @JsonBackReference
-    @OneToMany(mappedBy = "id")
+    @JsonBackReference(value="idDevelopper")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
     private List<Game> gamesCollection;
 
     public Developper() {
