@@ -82,6 +82,8 @@ public abstract class AbstractController<T> {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<T> update(@PathVariable("id") Long id, @RequestBody T item) {
+		System.out.println("********** UPDATE *************");
+		System.out.println(item.toString());
 		Optional<T> itemOptional = repository.findById(id);
 		
 		if (itemOptional.isPresent()) {
