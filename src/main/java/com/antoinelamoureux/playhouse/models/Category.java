@@ -17,10 +17,14 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id", scope = Category.class)
 @Entity
 @Table(name = "category")
 public class Category {
@@ -34,7 +38,7 @@ public class Category {
     @Size(min = 1, max = 50)
     @Column(name = "name")
     private String name;
-    @JsonBackReference(value="category")
+    @JsonIgnore
     @OneToMany(mappedBy = "id")
     private List<Game> games;
     

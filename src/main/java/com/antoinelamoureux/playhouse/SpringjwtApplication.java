@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.antoinelamoureux.playhouse.services.FilesStorageService;
 
 @SpringBootApplication
-public class SpringjwtApplication {
+public class SpringjwtApplication{
 	//@Resource
 	//FilesStorageService storageService;
 
@@ -17,12 +17,12 @@ public class SpringjwtApplication {
 		SpringApplication.run(SpringjwtApplication.class, args);
 	}
 	
-	/*
-	@Override
-	  public void run(String... arg) throws Exception {
-	    storageService.deleteAll();
-	    storageService.init();
-	  }
-	  */
+	
+//	@Override
+//	  public void run(String... arg) throws Exception {
+//	    storageService.deleteAll();
+//	    storageService.init();
+//	  }
+	
 
 }

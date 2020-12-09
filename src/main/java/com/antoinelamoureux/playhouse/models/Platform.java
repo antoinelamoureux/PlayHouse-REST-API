@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id", scope = Platform.class)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "platform")
 @NamedQueries({
@@ -34,11 +33,9 @@ public class Platform {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 8)
-    @JsonManagedReference
     @JoinColumn(name = "id_platform_type", referencedColumnName = "id_platform_type")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private PlatformType type;
-    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "platformCollection")
     private List<Game> games;
 

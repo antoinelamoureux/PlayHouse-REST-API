@@ -23,9 +23,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id", scope = PlatformType.class)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Entity
 @Table(name = "platform_type")
+@Entity
 public class PlatformType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

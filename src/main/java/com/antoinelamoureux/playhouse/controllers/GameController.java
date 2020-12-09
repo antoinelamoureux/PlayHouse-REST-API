@@ -2,7 +2,9 @@ package com.antoinelamoureux.playhouse.controllers;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,8 @@ public class GameController extends AbstractController<Game>{
 
 	@Autowired
 	private GamesRepository gameRepository;
+	
+	private User user;
 
 	@Autowired
 	public GameController(GamesRepository repository, UserRepository userRepository) {
@@ -53,7 +57,7 @@ public class GameController extends AbstractController<Game>{
 		System.out.println(game.getTitle());
 		System.out.println(game.getAddDate());
 		
-		User user = userRepository.findById(id).get();
+		user = userRepository.findById(id).get();
 		Set<Game> games = user.getGames(); ;
 		games.add(game);
 		/*
@@ -93,13 +97,39 @@ public class GameController extends AbstractController<Game>{
 	
 	@RequestMapping(value="/user/{id}", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
 	public Set<Game> getGamesByUserId(@PathVariable(value = "id") Long id) {
-		User user = userRepository.findById(id).get();
+		user = userRepository.findById(id).get();
 		Set<Game> games = user.getGames(); 
-		for (Game game: games) {
+		for (Game game : games) {
 			System.out.println(game.getTitle());
 		}
 		
 		return games;
+	}
+	
+	@Transactional
+	@RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<HttpStatus> deleteGameById(@PathVariable("id") Long id) {
+		System.out.println("********** DELETE *************");
+		
+		try {
+			Game game = gameRepository.findById(id).get();
+			user.getGames().remove(game);
+			//List<Long> games = user.getGames().stream().map(Game::getId).collect(Collectors.toList());
+			List<String> userGames = user.getGames().stream().map(g -> g.getTitle()).collect(Collectors.toList());
+			
+			for (String title : userGames) {
+				System.out.println(title);
+			}
+			
+			game.getUserCollection().remove(user);
+
+			System.out.println("********** ID *************" + id);
+			//gameRepository.delete(game);
+			gameRepository.deleteGame(id);
+		      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		    } catch (Exception e) {
+		      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		   }
 	}
 	
 	@GetMapping("/{id}/tags")

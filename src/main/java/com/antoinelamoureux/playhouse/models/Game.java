@@ -58,25 +58,35 @@ public class Game implements Serializable {
     private Date releaseDate;
     @Column(name = "price")
     private BigDecimal price;
-    @JsonManagedReference(value="note")
+
     @JoinColumn(name = "id_note", referencedColumnName = "id_note")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Note note;
-    @JsonManagedReference(value="category")
+
     @JoinColumn(name = "id_category", referencedColumnName = "id_category")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Category category;
-    @JsonManagedReference(value="state")
+
     @JoinColumn(name = "id_state", referencedColumnName = "id_state")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private State state;
-    @JsonManagedReference(value="classification")
+
     @JoinColumn(name = "id_classification", referencedColumnName = "id_classification")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Classification classification;
+    
+    @JoinColumn(name = "id_developper", referencedColumnName = "id_developper")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Developper idDevelopper;
+
+    @JoinColumn(name = "id_editor", referencedColumnName = "id_editor")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Editor idEditor;
+    
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "games")
     @OrderBy("id DESC")
     private List<User> userCollection;
+    
     @JoinTable(name = "games_tags", joinColumns = {
             @JoinColumn(name = "id_game", referencedColumnName = "id_game")}, inverseJoinColumns = {
             @JoinColumn(name = "id_tag", referencedColumnName = "id_tag")})
@@ -87,14 +97,6 @@ public class Game implements Serializable {
         @JoinColumn(name = "id_platform", referencedColumnName = "id_platform")})
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private List<Platform> platformCollection;
-    @JsonManagedReference(value="idDevelopper")
-    @JoinColumn(name = "id_developper", referencedColumnName = "id_developper")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Developper idDevelopper;
-    @JsonManagedReference(value="idEditor")
-    @JoinColumn(name = "id_editor", referencedColumnName = "id_editor")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Editor idEditor;
 
     public Game() {
     }
@@ -103,7 +105,8 @@ public class Game implements Serializable {
         this.id = id;
     }
 
-    public Game(Long id, String title, Date addDate, Date releaseDate, Note note, Category category, State state, Classification classification) {
+    public Game(Long id, String title, Date addDate, Date releaseDate, Note note, Category category, 
+    		State state, Classification classification, Developper idDevelopper, Editor idEditor) {
         this.id = id;
         this.title = title;
         this.addDate = addDate;
@@ -112,6 +115,8 @@ public class Game implements Serializable {
         this.category = category;
         this.state = state;
         this.classification = classification;
+        this.idDevelopper = idDevelopper;
+        this.idEditor = idEditor;
     }
 
     public Long getId() {

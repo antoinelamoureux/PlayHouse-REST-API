@@ -8,8 +8,12 @@ import javax.validation.constraints.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id", scope = Editor.class)
 @Entity
 @Table(name = "editor")
 @NamedQueries({
@@ -39,21 +43,18 @@ public class Editor implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "country")
     private String country;
-    @JsonBackReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
+    @JsonIgnore
+    @OneToMany(mappedBy = "id")
     private List<Game> gamesCollection;
 
     public Editor() {
     }
 
-    public Editor(Long id) {
-        this.id = id;
-    }
-
-    public Editor(Long id, String name, String country) {
+    public Editor(Long id, String name, String country, List<Game> gamesCollection) {
         this.id = id;
         this.name = name;
         this.country = country;
+        this.gamesCollection = gamesCollection;
     }
 
     public Long getId() {

@@ -18,6 +18,7 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @JsonIdentityInfo(
@@ -36,7 +37,7 @@ public class State {
 	@Size(min = 1, max = 9)
 	@Column(name = "name")
 	private String name;
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
 	private List<Game> games;
 

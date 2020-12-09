@@ -19,8 +19,12 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id", scope = Note.class)
 @Entity
 @Table(name = "notes")
 public class Note implements Serializable {
@@ -36,7 +40,7 @@ public class Note implements Serializable {
 	@Size(min = 1, max = 9)
 	@Column(name = "note")
 	private String note;
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
 	private List<Game> games;
 	
