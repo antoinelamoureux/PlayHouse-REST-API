@@ -47,12 +47,25 @@ public class Platform {
         this.id = id;
     }
 
-    public Platform(Long id, PlatformType type) {
+    public Platform(Long id, String name, PlatformType type) {
         this.id = id;
+        this.name = name;
         this.type = type;
     }
 
-    public Long getId() {
+    public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setType(PlatformType type) {
+		this.type = type;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -62,10 +75,6 @@ public class Platform {
 
     public PlatformType getType() {
         return type;
-    }
-
-    public void setPlatformType(PlatformType type) {
-        this.type = type;
     }
 
     public List<Game> getGames() {
