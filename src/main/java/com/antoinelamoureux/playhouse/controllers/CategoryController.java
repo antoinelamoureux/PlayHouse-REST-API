@@ -1,5 +1,6 @@
 package com.antoinelamoureux.playhouse.controllers;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,10 +13,11 @@ import com.antoinelamoureux.playhouse.repository.CategoryRepository;
 @RestController
 @RequestMapping("/api/category")
 public class CategoryController extends AbstractController<Category>{
-
+	
 	@Autowired
 	public CategoryController(CategoryRepository repository) {
 		super(repository);
 	}
+	
 	
 }

@@ -132,6 +132,30 @@ public class GameController extends AbstractController<Game>{
 		   }
 	}
 	
+	@RequestMapping(value="/category/{id}", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+	public List<Game> getGamesByCategoryId(@PathVariable(value = "id") Long categoryId, Long userId) {
+		/*
+		Session session = HibernateUtil.getHibernateSession();
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+		CriteriaQuery<Game> cr = cb.createQuery(Game.class);
+		Root<Game> root = cr.from(Game.class);
+		cr.select(root).where(cb.);
+		
+		Query<Game> query = session.createQuery(cr);
+		List<Game> results = query.getResultList();
+		*/
+		
+		System.out.println(userId);
+
+		List<Game> games = gameRepository.findGamebyCategory(userId, categoryId);
+
+		for (Game game : games) {
+			System.out.println(game.getTitle());
+		}
+		
+		return games;
+	}
+	
 	@GetMapping("/{id}/tags")
 	public List<Tag> getAllTagsById(@PathVariable(value = "id") Long id) {
 		Game game = gameRepository.findById(id).get();
@@ -139,5 +163,6 @@ public class GameController extends AbstractController<Game>{
 		
 		return tags;
 	}
+	
 
 }
