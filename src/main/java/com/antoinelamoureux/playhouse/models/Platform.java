@@ -30,9 +30,10 @@ public class Platform {
     @Basic(optional = false)
     @Column(name = "name")
     private String name; 
-    @Basic(optional = false)
-    @NotNull
+    @Basic(optional = true)
+    //@NotNull
     @Size(min = 1, max = 8)
+    @JsonBackReference
     @JoinColumn(name = "id_platform_type", referencedColumnName = "id_platform_type")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private PlatformType type;

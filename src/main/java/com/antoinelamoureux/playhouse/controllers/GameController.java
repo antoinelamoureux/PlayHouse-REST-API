@@ -156,6 +156,48 @@ public class GameController extends AbstractController<Game>{
 		return games;
 	}
 	
+	@RequestMapping(value="/note/{id}", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+	public List<Game> getGamesByNoteId(@PathVariable(value = "id") Long noteId, Long userId) {
+		List<Game> games = gameRepository.findGamebyNote(userId, noteId);
+		return games;
+	}
+	
+	@RequestMapping(value="/state/{id}", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+	public List<Game> getGamesByStateId(@PathVariable(value = "id") Long stateId, Long userId) {
+		List<Game> games = gameRepository.findGamebyState(userId, stateId);
+		return games;
+	}
+	
+	@RequestMapping(value="/developper/{id}", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+	public List<Game> getGamesByDevelopperId(@PathVariable(value = "id") Long developperId, Long userId) {
+		List<Game> games = gameRepository.findGamebyDevelopper(userId, developperId);
+		return games;
+	}
+	
+	@RequestMapping(value="/editor/{id}", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+	public List<Game> getGamesByEditorId(@PathVariable(value = "id") Long editorId, Long userId) {
+		List<Game> games = gameRepository.findGamebyEditor(userId, editorId);
+		return games;
+	}
+	
+	@RequestMapping(value="/classification/{id}", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+	public List<Game> getGamesByClassificationId(@PathVariable(value = "id") Long classificationId, Long userId) {
+		List<Game> games = gameRepository.findGamebyClassification(userId, classificationId);
+		return games;
+	}
+	
+	@RequestMapping(value="/date", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+	public List<Game> getGamesByDateRange(@Valid @RequestBody String dateRange, Long userId) {
+		List<Game> games = gameRepository.findGamebyDateRange(userId, dateRange);
+		return games;
+	}
+	
+	@RequestMapping(value="/price", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+	public List<Game> getGamesByPriceRange(@Valid @RequestBody String priceRange, Long userId) {
+		List<Game> games = gameRepository.findGamebyDateRange(userId, priceRange);
+		return games;
+	}
+	
 	@GetMapping("/{id}/tags")
 	public List<Tag> getAllTagsById(@PathVariable(value = "id") Long id) {
 		Game game = gameRepository.findById(id).get();

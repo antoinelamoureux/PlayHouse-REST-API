@@ -39,6 +39,48 @@ public interface GamesRepository extends CrudRepository<Game, Long> {
 			+ "u.id = :userId AND "
 			+ "g.category.id = :categoryId "
 			+ "ORDER BY g.releaseDate ASC")
-	public List<Game> findGamebyCategory(@Param("userId") Long userId, @Param("categoryId")Long categoryId);
+	public List<Game> findGamebyCategory(@Param("userId") Long userId, @Param("categoryId") Long categoryId);
+	
+	@Query(value = "SELECT g FROM Game g JOIN g.userCollection u WHERE "
+			+ "u.id = :userId AND "
+			+ "g.state.id = :stateId "
+			+ "ORDER BY g.releaseDate ASC")
+	public List<Game> findGamebyState(@Param("userId") Long userId, @Param("stateId") Long stateId);
+	
+	@Query(value = "SELECT g FROM Game g JOIN g.userCollection u WHERE "
+			+ "u.id = :userId AND "
+			+ "g.note.id = :noteId "
+			+ "ORDER BY g.releaseDate ASC")
+	public List<Game> findGamebyNote(@Param("userId") Long userId, @Param("noteId") Long noteId);
+	
+	@Query(value = "SELECT g FROM Game g JOIN g.userCollection u WHERE "
+			+ "u.id = :userId AND "
+			+ "g.idDevelopper.id = :developperId "
+			+ "ORDER BY g.releaseDate ASC")
+	public List<Game> findGamebyDevelopper(@Param("userId") Long userId, @Param("developperId") Long developperId);
+	
+	@Query(value = "SELECT g FROM Game g JOIN g.userCollection u WHERE "
+			+ "u.id = :userId AND "
+			+ "g.idEditor.id = :editorId "
+			+ "ORDER BY g.releaseDate ASC")
+	public List<Game> findGamebyEditor(@Param("userId") Long userId, @Param("editorId")Long editorId);
+	
+	@Query(value = "SELECT g FROM Game g JOIN g.userCollection u WHERE "
+			+ "u.id = :userId AND "
+			+ "g.classification.id = :classificationId "
+			+ "ORDER BY g.releaseDate ASC")
+	public List<Game> findGamebyClassification(@Param("userId") Long userId, @Param("classificationId") Long classificationId);
+	
+	@Query(value = "SELECT g FROM Game g JOIN g.userCollection u WHERE "
+			+ "u.id = :userId AND "
+			+ "g.releaseDate Like :range "
+			+ "ORDER BY g.releaseDate ASC")
+	public List<Game> findGamebyDateRange(@Param("userId") Long userId, @Param("range") String range);
+	
+	@Query(value = "SELECT g FROM Game g JOIN g.userCollection u WHERE "
+			+ "u.id = :userId AND "
+			+ "g.price Like :range "
+			+ "ORDER BY g.releaseDate ASC")
+	public List<Game> findGamebyPriceRange(@Param("userId") Long userId, @Param("range") String range);
 
 }
