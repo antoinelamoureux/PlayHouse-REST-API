@@ -7,10 +7,12 @@ import javax.validation.constraints.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
@@ -30,10 +32,9 @@ public class Platform {
     @Basic(optional = false)
     @Column(name = "name")
     private String name; 
-    @Basic(optional = true)
-    //@NotNull
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 8)
-    @JsonBackReference
     @JoinColumn(name = "id_platform_type", referencedColumnName = "id_platform_type")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private PlatformType type;

@@ -14,17 +14,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.antoinelamoureux.playhouse.utils.CustomListSerializer;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = PlatformType.class)
-//@JsonIdentityReference(alwaysAsId = true)
 @Table(name = "platform_type")
 @Entity
 public class PlatformType {
@@ -38,7 +37,8 @@ public class PlatformType {
 	@Column(length = 20)
 	private EPlatformType name;
 	
-	@JsonManagedReference
+	//@JsonSerialize(using = CustomListSerializer.class)
+	@JsonIgnore
 	@OneToMany(mappedBy = "id")
     private List<Platform> platforms;
 	

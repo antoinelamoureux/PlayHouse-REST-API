@@ -20,12 +20,11 @@ public interface GamesRepository extends CrudRepository<Game, Long> {
 	@Query("delete from Game g where g.id = ?1")
 	void deleteGame(Long id);
 	
-	/*
-	@Query(value = "SELECT g FROM Game g WHERE g.title LIKE '%' || :keyword || '%'"
-			+ "OR g.description '%' || :keyword || '%'")
-	public Set<Game> search(@Param("keyword") String keyword);
-	*/
-	
+
+	@Query(value = "SELECT g FROM Game g WHERE g.title LIKE %:keyword% "
+			+ "OR g.description LIKE %:keyword%")
+	public Set<Game> searchGames(@Param("keyword") String keyword);
+
 	/*
 	@Query(value = "SELECT g FROM Game g INNER JOIN Category c ON g.id = c.id WHERE "
 			+ "c.id = :categoryId")

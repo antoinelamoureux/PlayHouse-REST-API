@@ -156,6 +156,13 @@ public class GameController extends AbstractController<Game>{
 		return games;
 	}
 	
+	@RequestMapping(value="/search/{keyword}", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+	public Set<Game> searchGames(@PathVariable("keyword") String keyword) {
+		System.out.println("************** SEARCH ****************");
+		Set<Game> games = gameRepository.searchGames(keyword);
+		return games;
+	}
+	
 	@RequestMapping(value="/note/{id}", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
 	public List<Game> getGamesByNoteId(@PathVariable(value = "id") Long noteId, Long userId) {
 		List<Game> games = gameRepository.findGamebyNote(userId, noteId);
