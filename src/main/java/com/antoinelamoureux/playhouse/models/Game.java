@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import com.antoinelamoureux.playhouse.utils.EntityIdResolver;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;

@@ -50,14 +50,30 @@ public class GameController extends AbstractController<Game>{
 		try {
 		System.out.println(data);
 		
-		Long id = data.getId();
+		Long idUser = data.getId();
 		Game game = data.getGame();
 		
-		System.out.println(id);
+		System.out.println("********** CREATE *************");
+		System.out.println(idUser);
 		System.out.println(game.getTitle());
+		System.out.println(game.getDescription());
 		System.out.println(game.getAddDate());
+		System.out.println(game.getCover());
+		System.out.println("********** CATEGORY *************");
+		System.out.println(game.getCategory().getId());
+		System.out.println(game.getClass());
+		System.out.println(game.getClassification().getId());
+		System.out.println(game.getId());
+		System.out.println(game.getNote());
+		System.out.println(game.getReleaseDate());
+		System.out.println(game.getPrice());
+		System.out.println(game.getState().getId());
+		System.out.println(game.getIdDevelopper());
+		System.out.println(game.getIdEditor());
+		System.out.println(game.getTagsCollection());
+		System.out.println(game.getUserCollection());
 		
-		user = userRepository.findById(id).get();
+		user = userRepository.findById(idUser).get();
 		Set<Game> games = user.getGames(); ;
 		games.add(game);
 		/*

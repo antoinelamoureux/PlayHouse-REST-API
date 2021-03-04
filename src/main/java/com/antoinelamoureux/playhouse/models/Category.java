@@ -1,12 +1,13 @@
 package com.antoinelamoureux.playhouse.models;
 
 import java.util.List;
-
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,15 +16,17 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.antoinelamoureux.playhouse.utils.EntityIdResolver;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  generator = ObjectIdGenerators.PropertyGenerator.class, resolver = EntityIdResolver.class,
 		  property = "id", scope = Category.class)
 @Entity
 @Table(name = "category")
@@ -40,13 +43,13 @@ public class Category {
     private String name;
     @JsonIgnore
     @OneToMany(mappedBy = "id")
-    private List<Game> games;
+    private Set<Game> games;
     
 	public Category() {
 		
 	}
 
-	public Category(String name, List<Game> games) {
+	public Category(String name, Set<Game> games) {
 		this.name = name;
 		this.games = games;
 	}
@@ -63,11 +66,11 @@ public class Category {
 		this.name = name;
 	}
 
-	public List<Game> getGames() {
+	public Set<Game> getGames() {
 		return games;
 	}
 
-	public void setGames(List<Game> games) {
+	public void setGames(Set<Game> games) {
 		this.games = games;
 	}
 	

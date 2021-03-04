@@ -24,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@Table(name = "platform_type")
 @Entity
+@Table(name = "platform_type")
 public class PlatformType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

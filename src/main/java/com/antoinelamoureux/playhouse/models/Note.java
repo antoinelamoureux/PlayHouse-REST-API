@@ -17,13 +17,15 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.antoinelamoureux.playhouse.utils.EntityIdResolver;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  generator = ObjectIdGenerators.PropertyGenerator.class, resolver = EntityIdResolver.class,
 		  property = "id", scope = Note.class)
 @Entity
 @Table(name = "notes")
